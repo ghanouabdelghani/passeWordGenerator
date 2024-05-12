@@ -21,7 +21,7 @@ export default function PasswordLengthSlider() {
   };
 
   return (
-    <Box sx={{ width: 250 }}>
+    <Box sx={{ width: "100%" }}>
       <Typography id="password-length-slider" gutterBottom>
         Password Length: {valueLabelFormat(value)}
       </Typography>

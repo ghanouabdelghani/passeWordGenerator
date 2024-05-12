@@ -1,23 +1,60 @@
 import React, { useState } from "react";
 import "./App.css";
 import Lock from "./lock.jsx";
-import Input from "./input";
+import Input from "./Components/input.jsx";
 import Volume from "./volume";
-import Checkbox from "./checkbox";
+import Checkbox from "./Components/checkbox.jsx";
+import lock from "./assets/password.gif";
+
 function App() {
+  const [options, setOptions] = useState({
+    Uppercase: false,
+    Lowercase: false,
+    Numbers: false,
+    SpecialCharacters: false,
+  });
+
+  const handleOptionChange = (option, value) => {
+    setOptions({ ...options, [option]: value });
+  };
+
   return (
-    <div>
-      <Lock />
-      <div>
-        <p>PASSEWORD GENERATOR</p>
-        <p>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "white",
+        padding: "35px",
+        borderRadius: "20px",
+        width: "630px",
+        margin: "0 auto",
+      }}
+    >
+      <img src={lock} alt="" width="134px" height="134px" />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <h2>PASSWORD GENERATOR</h2>
+        <p
+          style={{
+            textAlign: "center",
+          }}
+        >
           Ensure online account safety by creating strong <br />
           and secure passwords
         </p>
       </div>
-      <Input />
+      <Input options={options} />
       <Volume />
-      <Checkbox />
+      <Checkbox onChange={handleOptionChange} />
     </div>
   );
 }
