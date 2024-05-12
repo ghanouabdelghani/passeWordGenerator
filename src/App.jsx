@@ -54,7 +54,7 @@ function App() {
       </div>
       <Input options={options} />
       <Volume />
-      <Checkbox onChange={handleOptionChange} />
+      <Checkbox options={options} onChange={handleOptionChange} />
     </div>
   );
 }

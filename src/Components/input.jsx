@@ -48,14 +48,19 @@ export default function Input({ options }) {
     if (options.Lowercase) charset += "abcdefghijklmnopqrstuvwxyz";
     if (options.Numbers) charset += "0123456789";
     if (options.SpecialCharacters) charset += "!@#$%^&*()_+~`|}{[]:;?><,./-=";
+
+    console.log("Charset:", charset); // Debugging: Log the charset
+
     let generatedPassword = "";
     for (let i = 0; i < 12; i++) {
       generatedPassword += charset.charAt(
         Math.floor(Math.random() * charset.length)
       );
     }
-    console.log(generatedPassword);
-    setPassword(generatedPassword);
+
+    console.log("Generated Password:", generatedPassword); // Debugging: Log generated password
+
+    setPassword(generatedPassword); // Set the generated password as the state
   };
 
   return (
