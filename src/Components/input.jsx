@@ -29,19 +29,21 @@ const inputStyles = {
   bigBox: { display: "flex", gap: "8px", width: "100%" },
 };
 
-export default function Input({ options }) {
+export default function Input({ options, passwordLength }) {
   const [copied, setCopied] = useState(false);
   const [password, setPassword] = useState("");
 
   const handleInput = (e) => {
     setPassword(e.target.value);
   };
+
   const handleCopy = () => {
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
     }, 1000);
   };
+
   const generatePassword = () => {
     let charset = "";
     if (options.Uppercase) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -52,7 +54,7 @@ export default function Input({ options }) {
     console.log("Charset:", charset); // Debugging: Log the charset
 
     let generatedPassword = "";
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < passwordLength; i++) {
       generatedPassword += charset.charAt(
         Math.floor(Math.random() * charset.length)
       );

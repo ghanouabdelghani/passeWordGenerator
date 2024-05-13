@@ -11,22 +11,21 @@ function calculateValue(value) {
   return value;
 }
 
-export default function PasswordLengthSlider() {
-  const [value, setValue] = React.useState(10);
+export default function PasswordLengthSlider({handleSliderValue,sliderValue}) {
 
   const handleChange = (event, newValue) => {
     if (typeof newValue === "number") {
-      setValue(newValue);
+      handleSliderValue(newValue);
     }
   };
 
   return (
     <Box sx={{ width: "100%" }}>
       <Typography id="password-length-slider" gutterBottom>
-        Password Length: {valueLabelFormat(value)}
+        Password Length: {valueLabelFormat(sliderValue)}
       </Typography>
       <Slider
-        value={value}
+        value={sliderValue}
         min={5}
         step={1}
         max={30}

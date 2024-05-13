@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import "./App.css";
 import Lock from "./lock.jsx";
-import Input from "./Components/input.jsx";
-import Volume from "./volume";
-import Checkbox from "./Components/checkbox.jsx";
+import Input from "./components/input.jsx";
+import PasswordLengthSlider from "./volume";
+import Checkbox from "./components/checkbox.jsx";
 import lock from "./assets/password.gif";
 
 function App() {
+  const [value, setValue] = React.useState(10);
+
   const [options, setOptions] = useState({
     Uppercase: false,
     Lowercase: false,
     Numbers: false,
     SpecialCharacters: false,
   });
+
 
   const handleOptionChange = (option, value) => {
     setOptions({ ...options, [option]: value });
@@ -52,8 +55,8 @@ function App() {
           and secure passwords
         </p>
       </div>
-      <Input options={options} />
-      <Volume />
+      <Input options={options} passwordLength={value} />
+      <PasswordLengthSlider handleSliderValue={setValue} sliderValue={value}/>
       <Checkbox options={options} onChange={handleOptionChange} />
     </div>
   );
