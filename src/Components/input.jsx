@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import "../App.css";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const inputStyles = {
   inputContainer: {
@@ -32,6 +33,7 @@ const inputStyles = {
 export default function Input({ options, passwordLength }) {
   const [copied, setCopied] = useState(false);
   const [password, setPassword] = useState("");
+  const [value, setValue] = useState("");
 
   const handleInput = (e) => {
     setPassword(e.target.value);
@@ -51,8 +53,6 @@ export default function Input({ options, passwordLength }) {
     if (options.Numbers) charset += "0123456789";
     if (options.SpecialCharacters) charset += "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 
-    console.log("Charset:", charset); // Debugging: Log the charset
-
     let generatedPassword = "";
     for (let i = 0; i < passwordLength; i++) {
       generatedPassword += charset.charAt(
@@ -60,9 +60,8 @@ export default function Input({ options, passwordLength }) {
       );
     }
 
-    console.log("Generated Password:", generatedPassword); // Debugging: Log generated password
-
-    setPassword(generatedPassword); // Set the generated password as the state
+    setPassword(generatedPassword);
+    setValue(generatedPassword); // Fix: Assign generated password to value state
   };
 
   return (
@@ -78,14 +77,17 @@ export default function Input({ options, passwordLength }) {
           <RefreshIcon />
         </div>
       </div>
-      <button
-        className={copied ? "copied" : ""}
-        onClick={handleCopy}
-        style={inputStyles.copyButton}
-      >
-        <ContentCopyIcon style={{ fontSize: "10px" }} />
-        {copied ? <span>Copied</span> : <span>Copy</span>}
-      </button>
+
+      <CopyToClipboard text={value} onCopy={() => setCopied(true)}>
+        <button
+          className={copied ? "copied" : ""}
+          onClick={handleCopy}
+          style={inputStyles.copyButton}
+        >
+          <ContentCopyIcon style={{ fontSize: "10px" }} />
+          {copied ? <span>Copied</span> : <span>Copy</span>}
+        </button>
+      </CopyToClipboard>
     </div>
   );
 }
